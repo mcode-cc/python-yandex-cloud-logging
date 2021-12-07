@@ -63,7 +63,6 @@ setup(
     install_requires=["yandexcloud>=0.120.0"],
     packages=find_namespace_packages(include=['pyclm.*']),
     include_package_data=True,
-    test_suite='test',
     data_files=[('.', ['LICENSE', 'COPYRIGHT'])],
     zip_safe=False,
     classifiers=[
@@ -85,5 +84,5 @@ setup(
         "Topic :: Software Development :: Libraries :: Application Frameworks",
         "Topic :: System :: Networking"
     ],
-    keywords='yandexcloud logging logger'
+    keywords='yandexcloud logging logger trace'
 )
