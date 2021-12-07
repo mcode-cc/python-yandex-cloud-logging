@@ -1,5 +1,58 @@
 ![PyPI](https://img.shields.io/pypi/v/python-yandex-cloud-logging)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/python-yandex-cloud-logging)
+![PyPI - License](https://img.shields.io/pypi/l/python-yandex-cloud-logging)
 
-# python-yandex-cloud-logging
-Python Client for Yandex Cloud Logging
 
+# Python Client for Yandex Cloud Logging
+ 
+
+
+## Installation
+
+    pip3 install python-yandex-cloud-logging
+
+## Creating a Yandex Cloud Logging Group
+
+    yc logging group create --name=group --retention-period=1h
+
+Result
+
+    done (1s)
+    id: af3flf29t8**********
+    folder_id: aoek6qrs8t**********
+    cloud_id: aoegtvhtp8**********
+    created_at: "2021-06-24T09:56:38.970Z"
+    name: group
+    status: ACTIVE
+    retention_period: 3600s
+
+https://cloud.yandex.com/en/docs/logging/quickstart
+
+### Credentials
+
+There are several options for authorization your requests - OAuth Token, Metadata Service (if you're executing code inside VMs or Functions running in Yandex.Cloud) and Service Account Keys
+
+### OAuth Token
+    yc config get token
+
+Result
+
+    AQA....
+
+
+```python
+from pyclm.logging import Logger 
+
+log = Logger(
+    log_group_id="....",
+    credentials={"token": "AQA...."}
+)
+
+```
+
+### Service Account Keys
+
+
+```python
+sdk = yandexcloud.SDK()
+```
