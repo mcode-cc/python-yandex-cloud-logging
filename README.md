@@ -28,7 +28,7 @@ Result
 
 https://cloud.yandex.com/en/docs/logging/quickstart
 
-### Credentials
+## Credentials
 
 There are several options for authorization your requests - OAuth Token, Metadata Service (if you're executing code inside VMs or Functions running in Yandex.Cloud) and Service Account Keys
 
@@ -66,3 +66,27 @@ log = Logger(
     }
 )
 ```
+
+### Use Yandex SDK
+
+```python
+sdk = yandexcloud.SDK(...)
+
+log = Logger(
+    sdk=sdk, log_group_id="....",
+    resource_type="....", resource_id="....",
+    elements=1, period=0
+)
+
+```
+
+_resource_type_ - Resource type, serverless.function, hostname.
+Value must match the regular expression ([a-zA-Z][-a-zA-Z0-9_.]{0,63})?.
+
+_resource_id_ - Resource ID, i.e., ID of the function producing logs.
+Value must match the regular expression ([a-zA-Z0-9][-a-zA-Z0-9_.]{0,63})?.
+
+_elements_ - The number of elements before writing, must be in the range 1-100.
+
+_period_ -  Number of seconds to wait for new log entries before writing.
+

@@ -118,7 +118,7 @@ class Logger:
         message = self._message(args, kwargs, level='FATAL')
         _type, _value, _traceback = sys.exc_info()
         if _type is not None:
-            message["message"] = str(_value)  # bubble error message
+            message["message"] = str(_value)
             summary = []
             for frame in traceback.extract_tb(_traceback):
                 summary.append({
