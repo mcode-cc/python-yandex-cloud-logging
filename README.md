@@ -1,6 +1,6 @@
-![PyPI](https://img.shields.io/pypi/v/python-yandex-cloud-logging)
+[![PyPI](https://img.shields.io/pypi/v/python-yandex-cloud-logging)](https://pypi.org/project/python-yandex-cloud-logging/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/python-yandex-cloud-logging)
-![PyPI - License](https://img.shields.io/pypi/l/python-yandex-cloud-logging)
+[![PyPI - License](https://img.shields.io/pypi/l/python-yandex-cloud-logging)](https://github.com/mcode-cc/python-yandex-cloud-logging/blob/main/LICENSE)
 
 
 # Python Client for Yandex Cloud Logging
