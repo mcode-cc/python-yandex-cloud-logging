@@ -47,12 +47,22 @@ log = Logger(
     log_group_id="....",
     credentials={"token": "AQA...."}
 )
-
 ```
 
 ### Service Account Keys
 
 
 ```python
-sdk = yandexcloud.SDK()
+from pyclm.logging import Logger 
+
+log = Logger(
+    log_group_id="....",
+    credentials={
+        "service_account_key": {
+            "service_account_id": "....",
+            "id": "....",
+            "private_key": "<PEM>"
+        }
+    }
+)
 ```
