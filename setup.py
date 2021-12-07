@@ -55,8 +55,12 @@ setup(
     version=about["__version__"],
     description=about["__summary__"],
     long_description=long_description,
+    long_description_content_type="text/markdown",
     license=about["__license__"],
     url=about["__uri__"],
+    project_urls={
+        "Bug Tracker": "https://github.com/mcode-cc/python-yandex-cloud-logging/issues",
+    },
     author=about["__author__"],
     author_email=about["__email__"],
     platforms=['Any'],
@@ -65,6 +69,7 @@ setup(
     include_package_data=True,
     data_files=[('.', ['LICENSE', 'COPYRIGHT'])],
     zip_safe=False,
+    python_requires=">=3.6",
     classifiers=[
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Development Status :: 1 - Planning",
