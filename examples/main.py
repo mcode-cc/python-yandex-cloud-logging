@@ -1,5 +1,7 @@
 
 import os
+import time
+
 from pyclm.logging import Logger
 
 
@@ -37,11 +39,21 @@ if __name__ == '__main__':
 
     _logger = Logger(
         log_group_id=os.environ.get("LOG_GROUP_ID"),
-        credentials={"token": os.environ.get("TOKEN")}, elements=50
+        credentials={"token": os.environ.get("TOKEN")}
     )
-    test_warn(_logger)
-    test_info(_logger)
-    test_error(_logger)
-    test_debug(_logger)
-    test_critical(_logger)
-    test_trace(_logger)
+    
+    _ptns = time.process_time_ns()
+    _tns = time.time_ns()
+
+    for _ in range(100):
+        test_warn(_logger)
+        test_info(_logger)
+        test_error(_logger)
+        test_debug(_logger)
+        test_critical(_logger)
+        test_trace(_logger)
+    print((time.process_time_ns() - _ptns)/10**9, (time.time_ns() - _tns)/10**9)
+
+    # 0.122077 0.758518  elements=100, period = 10 (default)
+    # 1.05552 65.05855 elements=1, period = 10
+

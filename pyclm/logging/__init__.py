@@ -29,7 +29,7 @@ class Logger:
     def __init__(
             self, sdk: yandexcloud.SDK = None,
             log_group_id: str = None, resource_type: str = None, resource_id: str = None,
-            credentials: dict = None, elements: int = 1, period: int = 0
+            credentials: dict = None, elements: int = 100, period: int = 10
     ):
         if sdk is None:
             sdk = yandexcloud.SDK(**credentials)
