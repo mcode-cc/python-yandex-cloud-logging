@@ -1,6 +1,5 @@
 
 import os
-import subprocess
 from pyclm.logging import Logger
 
 

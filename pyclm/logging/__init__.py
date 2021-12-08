@@ -50,7 +50,7 @@ class Logger:
             self._write()
 
     @staticmethod
-    def _message(args, kwargs, level='LEVEL_UNSPECIFIED', trace=False):
+    def _message(args, kwargs, level='LEVEL_UNSPECIFIED'):
         _timestamp = Timestamp()
         _timestamp.GetCurrentTime()
         result = {
@@ -92,17 +92,19 @@ class Logger:
         if len(self.entries) >= self.elements or self.timer < time.time():
             self._write()
 
+    @staticmethod
+    def _extract(stack: traceback.StackSummary):
+        result = []
+        for frame in stack:
+            result.append({
+                "filename": frame.filename, "number": frame.lineno, "name": frame.name,
+                "line": frame.line, "locals": frame.locals
+            })
+        return result
+
     def trace(self, *args, **kwargs):
         message = self._message(args, kwargs, level="TRACE")
-        message["json_payload"]["stack"] = []
-        for frame in traceback.extract_stack():
-            message["json_payload"]["stack"].append({
-                "filename": frame.filename,
-                "number": frame.lineno,
-                "name": frame.name,
-                "line": frame.line,
-                "locals": frame.locals
-            })
+        message["json_payload"]["stack"] = self._extract(traceback.extract_stack())
         self._send(message)
 
     def debug(self, *args, **kwargs):
@@ -119,20 +121,11 @@ class Logger:
         _type, _value, _traceback = sys.exc_info()
         if _type is not None:
             message["message"] = str(_value)
-            summary = []
-            for frame in traceback.extract_tb(_traceback):
-                summary.append({
-                    "filename": frame.filename,
-                    "number": frame.lineno,
-                    "name": frame.name,
-                    "line": frame.line,
-                    "locals": frame.locals
-                })
-            traceback.clear_frames(_traceback)
             message["json_payload"].update({
                 "error": _type.__name__,
-                "traceback": summary
+                "traceback": self._extract(traceback.extract_tb(_traceback))
             })
+            traceback.clear_frames(_traceback)
         self._send(message)
 
     critical = fatal
