@@ -6,11 +6,11 @@ from pyclm.logging import Logger
 
 
 def test_warn(log: Logger):
-    log.warning("warning logger message", "А", "A", 0, 1, 0.123, None)
+    log.warning("warning logger message", "А", "B", 0, 1, 0.123, None)
 
 
 def test_info(log: Logger):
-    log.info("Info with attr", any_list=["А", "A", 0, 1, 0.123, None])
+    log.info("Info with attr", any_list=["А", "B", 0, 1, 0.123, None])
 
 
 def test_debug(log: Logger):
@@ -20,7 +20,7 @@ def test_debug(log: Logger):
 
 
 def test_error(log: Logger):
-    log.error("Error log message A")
+    log.error("Error log message")
 
 
 def test_trace(log: Logger):
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         log_group_id=os.environ.get("LOG_GROUP_ID"),
         credentials={"token": os.environ.get("TOKEN")}
     )
-    
+
     _ptns = time.process_time_ns()
     _tns = time.time_ns()
 
@@ -54,6 +54,7 @@ if __name__ == '__main__':
         test_trace(_logger)
     print((time.process_time_ns() - _ptns)/10**9, (time.time_ns() - _tns)/10**9)
 
-    # 0.122077 0.758518  elements=100, period = 10 (default)
-    # 1.05552 65.05855 elements=1, period = 10
+    # 0.122077 0.758518  elements=100, period = 10, workers = 0 (default)
+    # 1.05552 65.05855 elements=1, period = 10, workers = 0
+    # ~ 0.045114 0.043375 elements=100, period = 10, workers = 1 with multiprocessing
 

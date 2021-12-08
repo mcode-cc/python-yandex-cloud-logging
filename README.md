@@ -75,7 +75,7 @@ sdk = yandexcloud.SDK(...)
 log = Logger(
     sdk=sdk, log_group_id="....",
     resource_type="....", resource_id="....",
-    elements=1, period=0
+    elements=100, period=10, workers=1
 )
 
 ```
@@ -90,3 +90,4 @@ _elements_ - The number of elements before writing, must be in the range 1-100.
 
 _period_ -  Number of seconds to wait for new log entries before writing.
 
+_workers_ - Number of process ingestion.
