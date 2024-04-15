@@ -37,6 +37,7 @@ from distutils.version import LooseVersion
 
 if LooseVersion(setuptools.__version__) < LooseVersion("20.5"):
     import sys
+
     sys.exit("Installation failed: Upgrade setuptools to version 20.5 or later")
 
 base_dir = os.path.dirname(__file__)
@@ -49,6 +50,14 @@ with open(os.path.join(base_dir, "pyclm", "logging", "__about__.py")) as f:
 with open(os.path.join(base_dir, "README.md"), "r") as f:
     long_description = f.read()
 
+
+def parse_requirements_file(filename):
+    with open(filename) as fid:
+        requires = [ln.strip() for ln in fid.readlines() if not ln.startswith("#")]
+    return requires
+
+
+install_requires = parse_requirements_file("requirements.txt")
 
 setup(
     name=about["__title__"],
@@ -64,12 +73,12 @@ setup(
     author=about["__author__"],
     author_email=about["__email__"],
     platforms=['Any'],
-    install_requires=["yandexcloud>=0.120.0"],
+    install_requires=install_requires,
     packages=find_namespace_packages(include=['pyclm.*']),
     include_package_data=True,
     data_files=[('.', ['LICENSE', 'COPYRIGHT'])],
     zip_safe=False,
-    python_requires=">=3.6",
+    python_requires=">=3.6, <3.8",
     classifiers=[
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Development Status :: 1 - Planning",
@@ -79,7 +88,6 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Internet",
